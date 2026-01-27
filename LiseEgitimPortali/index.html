@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lise Eğitim Portalı | Zeduva Tarzı Profesyonel Eğitim</title>
+    <meta name="description" content="9-12. Sınıf Ücretsiz Video Dersler, PDF Notlar ve Soru Bankası">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="main-header">
+        <div class="container header-content">
+            <a href="#" class="logo" onclick="app.renderLandingPage()">
+                <span>🎓</span> LiseDersim
+            </a>
+            <nav class="main-nav">
+                <button class="nav-link active" onclick="app.switchSection('video')">Video Dersler</button>
+                <button class="nav-link" onclick="app.switchSection('notes')">Konu Notları</button>
+                <button class="nav-link" onclick="app.switchSection('questions')">Örnek Sorular</button>
+            </nav>
+
+            <div class="tools-wrapper">
+                <button class="tools-toggle-btn">
+                    🛠 Araçlar
+                </button>
+                <div id="tools-dropdown" class="tools-dropdown">
+                    <button class="tool-option" onclick="app.openCalculator()">
+                        <span class="tool-icon">🔢</span>
+                        <span>Hesap Makinesi</span>
+                    </button>
+                    <button class="tool-option" onclick="app.openDrawingBoard()">
+                        <span class="tool-icon">🎨</span>
+                        <span>Çizim Tahtası</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area (SPA Router Target) -->
+    <div id="app-container">
+        <!-- Views will be injected here by main.js -->
+    </div>
+
+    <!-- Video Modal -->
+
+    <!-- Video Modal -->
+    <!-- Video Modal -->
+    <div id="video-modal" class="modal-overlay" onclick="app.closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="app.closeModal(event)">&times;</button>
+            <iframe id="video-frame" width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Calculator Modal (Windows Style) -->
+    <div id="calculator-modal" class="modal-overlay" onclick="app.closeCalculator(event)">
+        <div class="modal-content calculator-content win-calc" onclick="event.stopPropagation()">
+            <div class="win-calc-header">
+                <div class="win-calc-title">
+                    <span class="calc-icon">🧮</span> Hesap Makinesi
+                </div>
+                <div class="win-window-controls">
+                    <button class="win-control min">─</button>
+                    <button class="win-control max">☐</button>
+                    <button class="win-control close" onclick="app.closeCalculator(event)">✕</button>
+                </div>
+            </div>
+
+            <div class="win-calc-body">
+                <div class="win-menu-bar">
+                    <button class="win-menu-btn">☰</button>
+                    <span class="mode-title">Standart</span>
+                    <button class="win-top-always">📌</button>
+                    <button class="win-history" style="margin-left: auto;">🕒</button>
+                </div>
+
+                <div class="win-display-area">
+                    <div class="history-line" id="calc-history"></div>
+                    <input type="text" id="calc-display" value="0" readonly>
+                </div>
+
+                <div class="win-memory-bar">
+                    <button disabled>MC</button>
+                    <button disabled>MR</button>
+                    <button>M+</button>
+                    <button>M-</button>
+                    <button>MS</button>
+                    <button disabled>M▼</button>
+                </div>
+
+                <div class="win-keypad">
+                    <!-- Row 1 -->
+                    <button onclick="app.calcInput('%')" class="calc-btn fn">%</button>
+                    <button onclick="app.calcInput('CE')" class="calc-btn fn">CE</button>
+                    <button onclick="app.calcInput('C')" class="calc-btn fn">C</button>
+                    <button onclick="app.calcInput('back')" class="calc-btn fn">⌫</button>
+
+                    <!-- Row 2 -->
+                    <button onclick="app.calcInput('1/x')" class="calc-btn fn">¹/x</button>
+                    <button onclick="app.calcInput('sqr')" class="calc-btn fn">x²</button>
+                    <button onclick="app.calcInput('sqrt')" class="calc-btn fn">²√x</button>
+                    <button onclick="app.calcInput('/')" class="calc-btn op">÷</button>
+
+                    <!-- Row 3 -->
+                    <button onclick="app.calcInput('7')" class="calc-btn num">7</button>
+                    <button onclick="app.calcInput('8')" class="calc-btn num">8</button>
+                    <button onclick="app.calcInput('9')" class="calc-btn num">9</button>
+                    <button onclick="app.calcInput('*')" class="calc-btn op">×</button>
+
+                    <!-- Row 4 -->
+                    <button onclick="app.calcInput('4')" class="calc-btn num">4</button>
+                    <button onclick="app.calcInput('5')" class="calc-btn num">5</button>
+                    <button onclick="app.calcInput('6')" class="calc-btn num">6</button>
+                    <button onclick="app.calcInput('-')" class="calc-btn op">-</button>
+
+                    <!-- Row 5 -->
+                    <button onclick="app.calcInput('1')" class="calc-btn num">1</button>
+                    <button onclick="app.calcInput('2')" class="calc-btn num">2</button>
+                    <button onclick="app.calcInput('3')" class="calc-btn num">3</button>
+                    <button onclick="app.calcInput('+')" class="calc-btn op">+</button>
+
+                    <!-- Row 6 -->
+                    <button onclick="app.calcInput('neg')" class="calc-btn num">+/-</button>
+                    <button onclick="app.calcInput('0')" class="calc-btn num">0</button>
+                    <button onclick="app.calcInput('.')" class="calc-btn num">,</button>
+                    <button onclick="app.calcInput('=')" class="calc-btn equal">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Drawing Modal -->
+    <div id="drawing-modal" class="modal-overlay" onclick="app.closeDrawingBoard(event)">
+        <div class="modal-content drawing-content" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="app.closeDrawingBoard(event)">&times;</button>
+
+            <div class="drawing-toolbar">
+                <div class="toolbar-group">
+                    <button onclick="app.setDrawMode('pen')" class="tool-btn active" id="btn-pen">✏️ Kalem</button>
+                    <button onclick="app.setDrawMode('eraser')" class="tool-btn" id="btn-eraser">🧹 Silgi</button>
+                </div>
+                <div class="toolbar-group">
+                    <input type="color" id="color-picker" value="#3b82f6" onchange="app.setColor(this.value)">
+                    <input type="range" id="size-slider" min="1" max="20" value="3" onchange="app.setSize(this.value)">
+                </div>
+                <div class="toolbar-group">
+                    <button onclick="app.clearCanvas()" class="tool-btn clear-all">🗑️ Temizle</button>
+                </div>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="drawing-canvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Lise Eğitim Portalı. Öğrenciler için özel hazırlanmıştır.</p>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
