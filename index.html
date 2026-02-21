@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,71 +10,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
-
-    <div id="sohbet-alani" style="border:1px solid #ccc; height:300px; overflow-y:scroll; padding:10px; margin-bottom:10px; background:#f9f9f9;">
-    <div id="mesajlar"></div>
-</div>
-<input type="text" id="mesajInput" placeholder="Mesajınızı yazın..." style="width:80%;">
-<button onclick="mesajGonder()">Gönder</button>
-
-<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
-
-<script>
-  // BURAYA EKRANINDA GÖRDÜĞÜN firebaseConfig KODLARINI YAPIŞTIR
-  const firebaseConfig = {
-    apiKey: "AIzaSyDTmGYVyDuiRg_bAZ_RO17HQGqm-hJa-h8",
-    authDomain: "gamehub-91d29.firebaseapp.com",
-    databaseURL: "https://gamehub-91d29-default-rtdb.firebaseio.com",
-    projectId: "gamehub-91d29",
-    storageBucket: "gamehub-91d29.firebasestorage.app",
-    messagingSenderId: "67437817081",
-    appId: "1:67437817081:web:9f80aaf2c5ec5fb51a4628",
-    measurementId: "G-JXH6LZWHSX"
-  };
-
-  // Firebase'i başlat
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-
-  // Mesaj Gönderme Fonksiyonu
-  function mesajGonder() {
-    const input = document.getElementById("mesajInput");
-    if(input.value.trim() !== "") {
-        db.ref("mesajlar").push({
-            metin: input.value,
-            tarih: Date.now()
-        });
-        input.value = "";
-    }
-  }
-
-  // Mesajları Anlık Dinleme
-  db.ref("mesajlar").on("child_added", (snapshot) => {
-    const veri = snapshot.val();
-    const mesajlarDiv = document.getElementById("mesajlar");
-    mesajlarDiv.innerHTML += `<div style="margin-bottom:5px;"><b>Misafir:</b> ${veri.metin}</div>`;
-    // Sayfayı aşağı kaydır
-    document.getElementById("sohbet-alani").scrollTop = document.getElementById("sohbet-alani").scrollHeight;
-  });
-</script>
     <div class="bg-gradient"></div>
+
     <div class="container">
-        <!-- AUTH SECTION -->
         <section id="auth-section" class="auth-container">
             <div class="auth-card glass">
                 <div class="auth-header">
                     <h1 class="logo-text">GAMEHUB<span>58</span></h1>
                     <p class="subtitle">Eğlenceye girmek için oturum açın</p>
                 </div>
-
                 <div class="tabs">
                     <button id="tab-login" class="tab-btn active">Giriş Yap</button>
                     <button id="tab-register" class="tab-btn">Kayıt Ol</button>
                 </div>
-
                 <form id="auth-form">
                     <div class="input-group" id="name-group" style="display: none;">
                         <label for="username"><i class="fa-solid fa-user"></i> Kullanıcı Adı</label>
@@ -95,97 +43,85 @@
             </div>
         </section>
 
-        <!-- DASHBOARD SECTION -->
         <section id="dashboard-section" class="dashboard-container hidden">
             <header class="main-header">
                 <div class="logo">GAMEHUB<span>58</span></div>
+                
+                <div id="global-chat" class="glass" style="margin: 10px 0; padding: 10px; border-radius: 10px;">
+                    <div id="sohbet-alani" style="height:150px; overflow-y:scroll; margin-bottom:10px; font-size: 0.9em;">
+                        <div id="mesajlar"></div>
+                    </div>
+                    <div style="display: flex; gap: 5px;">
+                        <input type="text" id="mesajInput" placeholder="Gruba mesaj yaz..." style="flex: 1; padding: 5px; border-radius: 5px; border: none;">
+                        <button onclick="mesajGonder()" class="primary-btn" style="padding: 5px 15px; width: auto;">Gönder</button>
+                    </div>
+                </div>
+
                 <div class="user-profile">
                     <span id="display-username">Misafir</span>
-                    <button id="logout-btn" class="icon-btn" title="Çıkış Yap"><i
-                            class="fa-solid fa-right-from-bracket"></i></button>
+                    <button id="logout-btn" class="icon-btn" title="Çıkış Yap"><i class="fa-solid fa-right-from-bracket"></i></button>
                 </div>
             </header>
 
             <main class="games-grid" id="games-grid">
-                <!-- Games will be injected here via JS -->
-            </main>
+                </main>
         </section>
 
-        <!-- GAME MODAL -->
         <div id="game-modal" class="modal hidden">
             <div class="modal-content glass">
                 <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
                 <h2 id="modal-title">Oyun Başlığı</h2>
-                <div id="game-container" class="game-container">
-                    <!-- Game content goes here -->
-                </div>
+                <div id="game-container" class="game-container"></div>
             </div>
         </div>
     </div>
 
-    <!-- TOASTS -->
     <div id="toast-container" class="toast-container"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
+
+    <script>
+      // Firebase Yapılandırman
+      const firebaseConfig = {
+        apiKey: "AIzaSyDTmGYVyDuiRg_bAZ_RO17HQGqm-hJa-h8",
+        authDomain: "gamehub-91d29.firebaseapp.com",
+        databaseURL: "https://gamehub-91d29-default-rtdb.firebaseio.com",
+        projectId: "gamehub-91d29",
+        storageBucket: "gamehub-91d29.firebasestorage.app",
+        messagingSenderId: "67437817081",
+        appId: "1:67437817081:web:9f80aaf2c5ec5fb51a4628",
+        measurementId: "G-JXH6LZWHSX"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.database();
+
+      // Mesaj Gönderme (Firebase'e yazar, böylece herkes görür)
+      function mesajGonder() {
+        const input = document.getElementById("mesajInput");
+        const kullanici = document.getElementById("display-username").innerText;
+        if(input.value.trim() !== "") {
+            db.ref("mesajlar").push({
+                kullanici: kullanici,
+                metin: input.value,
+                tarih: Date.now()
+            });
+            input.value = "";
+        }
+      }
+
+      // Mesajları Dinleme (Herkesin ekranında anında güncellenir)
+      db.ref("mesajlar").limitToLast(20).on("child_added", (snapshot) => {
+        const veri = snapshot.val();
+        const mesajlarDiv = document.getElementById("mesajlar");
+        mesajlarDiv.innerHTML += `<div style="margin-bottom:5px; color: white;"><b>${veri.kullanici}:</b> ${veri.metin}</div>`;
+        document.getElementById("sohbet-alani").scrollTop = document.getElementById("sohbet-alani").scrollHeight;
+      });
+    </script>
 
     <script src="games/xox.js"></script>
     <script src="games/sos.js"></script>
-    <script src="games/dots_boxes.js"></script>
-    <script src="games/hangman.js"></script>
-    <script src="games/rps.js"></script>
-    <script src="games/connect4.js"></script>
-    <script src="games/battleship.js"></script>
-    <script src="games/word_chain.js"></script>
-    <script src="games/questions20.js"></script>
-    <script src="games/would_you_rather.js"></script>
-    <script src="games/truth_dare.js"></script>
-    <script src="games/is_spy.js"></script>
-    <script src="games/name_city.js"></script>
-    <script src="games/alphabet_game.js"></script>
-    <script src="games/memory_game.js"></script>
-    <script src="games/slap_reflex.js"></script>
-    <script src="games/thumb_war.js"></script>
-    <script src="games/arm_wrestling.js"></script>
-    <script src="games/paper_soccer.js"></script>
-    <script src="games/maze_game.js"></script>
-    <script src="games/pictionary.js"></script>
-    <script src="games/simon_says.js"></script>
-    <script src="games/red_light_green.js"></script>
-    <script src="games/statue_game.js"></script>
-    <script src="games/seven_boom.js"></script>
-    <script src="games/number_guess.js"></script>
-    <script src="games/nim_game.js"></script>
-    <script src="games/stick_pick.js"></script>
-    <script src="games/paper_fortune.js"></script>
-    <script src="games/mash_game.js"></script>
-    <script src="games/scrambled_word.js"></script>
-    <script src="games/palindrome_hunt.js"></script>
-    <script src="games/rhythm_claps.js"></script>
-    <script src="games/chopsticks.js"></script>
-    <script src="games/coin_guess.js"></script>
-    <script src="games/paper_plane.js"></script>
-    <script src="games/silent_ball.js"></script>
-    <script src="games/follow_leader.js"></script>
-    <script src="games/shadow_guess.js"></script>
-    <script src="games/sound_guess.js"></script>
-    <script src="games/one_line_draw.js"></script>
-    <script src="games/morse_code.js"></script>
-    <script src="games/secret_code.js"></script>
-    <script src="games/treasure_hunt.js"></script>
-    <script src="games/line_completion.js"></script>
-    <script src="games/square_completion.js"></script>
-    <script src="games/reflex_finger.js"></script>
-    <script src="games/book_balance.js"></script>
-    <script src="games/table_tapper.js"></script>
-    <script src="games/hand_stack.js"></script>
-    <script src="games/wink_murderer.js"></script>
-    <script src="games/forbidden_word.js"></script>
-    <script src="games/two_truths.js"></script>
-    <script src="games/word_association.js"></script>
-    <script src="games/human_knot.js"></script>
-    <script src="games/number_pattern.js"></script>
-    <script src="games/fast_category.js"></script>
-    <script src="games/secret_game.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
-
-
 </html>
