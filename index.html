@@ -13,6 +13,54 @@
 </head>
 
 <body>
+
+    <div id="sohbet-alani" style="border:1px solid #ccc; height:300px; overflow-y:scroll; padding:10px; margin-bottom:10px; background:#f9f9f9;">
+    <div id="mesajlar"></div>
+</div>
+<input type="text" id="mesajInput" placeholder="Mesajınızı yazın..." style="width:80%;">
+<button onclick="mesajGonder()">Gönder</button>
+
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
+
+<script>
+  // BURAYA EKRANINDA GÖRDÜĞÜN firebaseConfig KODLARINI YAPIŞTIR
+  const firebaseConfig = {
+    apiKey: "AIzaSyDTmGYVyDuiRg_bAZ_RO17HQGqm-hJa-h8",
+    authDomain: "gamehub-91d29.firebaseapp.com",
+    databaseURL: "https://gamehub-91d29-default-rtdb.firebaseio.com",
+    projectId: "gamehub-91d29",
+    storageBucket: "gamehub-91d29.firebasestorage.app",
+    messagingSenderId: "67437817081",
+    appId: "1:67437817081:web:9f80aaf2c5ec5fb51a4628",
+    measurementId: "G-JXH6LZWHSX"
+  };
+
+  // Firebase'i başlat
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  // Mesaj Gönderme Fonksiyonu
+  function mesajGonder() {
+    const input = document.getElementById("mesajInput");
+    if(input.value.trim() !== "") {
+        db.ref("mesajlar").push({
+            metin: input.value,
+            tarih: Date.now()
+        });
+        input.value = "";
+    }
+  }
+
+  // Mesajları Anlık Dinleme
+  db.ref("mesajlar").on("child_added", (snapshot) => {
+    const veri = snapshot.val();
+    const mesajlarDiv = document.getElementById("mesajlar");
+    mesajlarDiv.innerHTML += `<div style="margin-bottom:5px;"><b>Misafir:</b> ${veri.metin}</div>`;
+    // Sayfayı aşağı kaydır
+    document.getElementById("sohbet-alani").scrollTop = document.getElementById("sohbet-alani").scrollHeight;
+  });
+</script>
     <div class="bg-gradient"></div>
     <div class="container">
         <!-- AUTH SECTION -->
@@ -138,5 +186,6 @@
     <script src="games/secret_game.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
+
 
 </html>
