@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +11,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
     <div class="bg-gradient"></div>
-
+    
     <div class="container">
         <section id="auth-section" class="auth-container">
             <div class="auth-card glass">
@@ -20,10 +22,12 @@
                     <h1 class="logo-text">GAMEHUB<span>58</span></h1>
                     <p class="subtitle">Eğlenceye girmek için oturum açın</p>
                 </div>
+
                 <div class="tabs">
                     <button id="tab-login" class="tab-btn active">Giriş Yap</button>
                     <button id="tab-register" class="tab-btn">Kayıt Ol</button>
                 </div>
+
                 <form id="auth-form">
                     <div class="input-group" id="name-group" style="display: none;">
                         <label for="username"><i class="fa-solid fa-user"></i> Kullanıcı Adı</label>
@@ -46,22 +50,14 @@
         <section id="dashboard-section" class="dashboard-container hidden">
             <header class="main-header">
                 <div class="logo">GAMEHUB<span>58</span></div>
-                
-                <div id="global-chat" class="glass" style="margin: 10px 0; padding: 10px; border-radius: 10px;">
-                    <div id="sohbet-alani" style="height:150px; overflow-y:scroll; margin-bottom:10px; font-size: 0.9em;">
-                        <div id="mesajlar"></div>
-                    </div>
-                    <div style="display: flex; gap: 5px;">
-                        <input type="text" id="mesajInput" placeholder="Gruba mesaj yaz..." style="flex: 1; padding: 5px; border-radius: 5px; border: none;">
-                        <button onclick="mesajGonder()" class="primary-btn" style="padding: 5px 15px; width: auto;">Gönder</button>
-                    </div>
-                </div>
-
                 <div class="user-profile">
                     <span id="display-username">Misafir</span>
                     <button id="logout-btn" class="icon-btn" title="Çıkış Yap"><i class="fa-solid fa-right-from-bracket"></i></button>
                 </div>
             </header>
+
+            <div id="grup-listesi-konteyner">
+                </div>
 
             <main class="games-grid" id="games-grid">
                 </main>
@@ -82,7 +78,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
 
     <script>
-      // Firebase Yapılandırman
       const firebaseConfig = {
         apiKey: "AIzaSyDTmGYVyDuiRg_bAZ_RO17HQGqm-hJa-h8",
         authDomain: "gamehub-91d29.firebaseapp.com",
@@ -97,26 +92,11 @@
       firebase.initializeApp(firebaseConfig);
       const db = firebase.database();
 
-      // Mesaj Gönderme (Firebase'e yazar, böylece herkes görür)
-      function mesajGonder() {
-        const input = document.getElementById("mesajInput");
-        const kullanici = document.getElementById("display-username").innerText;
-        if(input.value.trim() !== "") {
-            db.ref("mesajlar").push({
-                kullanici: kullanici,
-                metin: input.value,
-                tarih: Date.now()
-            });
-            input.value = "";
-        }
-      }
-
-      // Mesajları Dinleme (Herkesin ekranında anında güncellenir)
-      db.ref("mesajlar").limitToLast(20).on("child_added", (snapshot) => {
-        const veri = snapshot.val();
-        const mesajlarDiv = document.getElementById("mesajlar");
-        mesajlarDiv.innerHTML += `<div style="margin-bottom:5px; color: white;"><b>${veri.kullanici}:</b> ${veri.metin}</div>`;
-        document.getElementById("sohbet-alani").scrollTop = document.getElementById("sohbet-alani").scrollHeight;
+      // GRUPLARI DİNLE VE EKRANA BAS (Tasarımı bozmamak için sadece veri akışını sağlar)
+      db.ref("gruplar").on("value", (snapshot) => {
+          const gruplar = snapshot.val();
+          console.log("Canlı Gruplar Güncellendi:", gruplar);
+          // Eğer app.js içinde grupları listeleyen bir fonksiyonun varsa onu burada çağırabilirsin
       });
     </script>
 
