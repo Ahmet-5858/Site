@@ -200,3 +200,35 @@ const SecretFindDifferentGame = {
 };
 
 window.SecretFindDifferentGame = SecretFindDifferentGame;
+// mesaj gönderme
+function firebaseSendMessage(groupCode, text) {
+
+  push(
+    ref(db, "groups/" + groupCode + "/messages"),
+    {
+      text: text,
+      time: Date.now()
+    }
+  );
+
+}
+
+
+// mesajları dinleme (canlı)
+function firebaseListenMessages(groupCode) {
+
+  onChildAdded(
+    ref(db, "groups/" + groupCode + "/messages"),
+    function(snapshot) {
+
+      const message = snapshot.val();
+
+      console.log("Yeni mesaj:", message.text);
+
+      // buraya ekrana mesaj ekleme kodun gelecek
+
+    }
+  );
+
+}
+
