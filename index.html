@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Restaurant | Eşsiz Lezzetler</title>
+
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Dynamic Background -->
+    <div class="app-background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Header Glassmorphism -->
+    <header class="glass-header">
+        <div class="logo">
+            <span class="logo-icon"><i class="fa-solid fa-utensils"></i></span>
+            <span class="logo-text">Modern<span class="highlight">Bistro</span></span>
+        </div>
+        <nav class="desktop-nav">
+            <a href="#home" class="active">Ana Sayfa</a>
+            <a href="#services">Hizmetler</a>
+            <a href="#menu">Menü</a>
+            <a href="#gallery">Galeri</a>
+            <a href="admin.html" class="admin-link"><i class="fa-solid fa-lock"></i> Admin</a>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="badge-pill">
+                        <span class="pulse-dot"></span> Yeni Nesil Gastronomi
+                    </div>
+                    <h1>Lezzetin <span class="gradient-text">Sanata</span> Dönüştüğü Yer</h1>
+                    <p>Özenle seçilmiş malzemeler, usta ellerde buluşuyor. Eşsiz bir yemek deneyimi için masanız hazır.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#menu" class="btn btn-primary">Menüyü İncele</a>
+                        <a href="#services" class="btn btn-secondary">Hizmetlerimiz</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <!-- Image placeholder, can be generated later -->
+                    <div class="glass-card visual-card">
+                        <div class="food-placeholder"><i class="fa-solid fa-bowl-food"></i></div>
+                        <div class="floating-badge badge-1">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <div>
+                                <strong>4.9/5</strong>
+                                <span>Müşteri Puanı</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services-section section-padding">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2>Neler Sunuyoruz?</h2>
+                    <p>Size en iyi deneyimi yaşatmak için her detayı düşündük.</p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="glass-card service-card">
+                        <div class="service-icon"><i class="fa-solid fa-bell-concierge"></i></div>
+                        <h3>A La Carte</h3>
+                        <p>Dünya mutfağından seçkin lezzetler, şık sunumlarla masanızda.</p>
+                    </div>
+
+                    <div class="glass-card service-card">
+                        <div class="service-icon"><i class="fa-solid fa-motorcycle"></i></div>
+                        <h3>Hızlı Paket Servis</h3>
+                        <p>Özel korumalı paketlerimizle sımsıcak lezzetler kapınızda.</p>
+                    </div>
+
+                    <div class="glass-card service-card">
+                        <div class="service-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                        <h3>Gel - Al</h3>
+                        <p>Siparişinizi yolda verin, beklemeden gelip teslim alın.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section id="menu" class="menu-section section-padding">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2>Keşfetmeniz İçin: <span class="gradient-text">Menümüz</span></h2>
+                    <p>En taze malzemelerle hazırlanan imza lezzetlerimiz.</p>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="category-filters" id="category-filters">
+                    <!-- Categories will be injected here via JS -->
+                </div>
+
+                <!-- Menu Items Grid -->
+                <div class="menu-grid" id="menu-grid">
+                    <!-- Menu items will be injected here via JS -->
+
+                    <div class="loading-state">
+                        <i class="fa-solid fa-spinner fa-spin"></i> Menü Yükleniyor...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery / Visuals Section -->
+        <section id="gallery" class="gallery-section section-padding">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2>Atmosferimiz</h2>
+                    <p>İç mekanımızdan ve mutfağımızdan kareler.</p>
+                </div>
+                <div class="gallery-grid">
+                    <div class="gallery-placeholder">Fotoğraf 1</div>
+                    <div class="gallery-placeholder">Fotoğraf 2</div>
+                    <div class="gallery-placeholder">Fotoğraf 3</div>
+                    <div class="gallery-placeholder">Fotoğraf 4</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-icon"><i class="fa-solid fa-utensils"></i></span>
+                    <span class="logo-text">Modern<span class="highlight">Bistro</span></span>
+                </div>
+                <p>Eşsiz lezzetleri unutulmaz anılara dönüştürüyoruz.</p>
+            </div>
+            <div class="footer-links">
+                <h4>İletişim</h4>
+                <p><i class="fa-solid fa-location-dot"></i> Lezzet Cad. No:1, İstanbul</p>
+                <p><i class="fa-solid fa-phone"></i> +90 555 123 45 67</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ModernBistro. Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>
